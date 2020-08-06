@@ -1,31 +1,26 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import styled from 'styled-components';
 import PageDefault from '../../../components/PageDefault';
 import FormField from '../../../components/FormField';
 import Button from '../../../components/Button';
+import useForm from '../../../hooks/useForms';
+
+// TODO criar as opçoes de remover uma categoria existente
+
+const Ul = styled.ul`
+/* //TODO Deixar bonito a lista */
+`;
 
 function CadastroCategoria() {
   const valoresIniciais = {
-    nome: '',
+    titulo: '',
     descricao: '',
     cor: '',
   };
-  const [categorias, setCategorias] = useState([]);
-  const [values, setValues] = useState(valoresIniciais);
 
-  function setValue(chave, valor) {
-    // chave: nome, descricao, cor, bla, bli ...
-    setValues({
-      ...values,
-      [chave]: valor, // nome:'valor' ou descrocao:'valor' ...
-    });
-  }
-  function handleChange(infosDoEvento) {
-    setValue(
-      infosDoEvento.target.getAttribute('name'),
-      infosDoEvento.target.value,
-    );
-  }
+  const { handleChange, values, clearForm } = useForm(valoresIniciais);
+  const [categorias, setCategorias] = useState([]);
 
   useEffect(() => {
     const URL_TOP = window.location.hostname.includes('localhost')
@@ -38,13 +33,13 @@ function CadastroCategoria() {
           ...resposta,
         ]);
       });
-  }, []);
+  });
 
   return (
     <PageDefault>
       <h1>
         Cadastro de categoria:
-        {values.nome}
+        {values.titulo}
         {' '}
 
       </h1>
@@ -55,15 +50,15 @@ function CadastroCategoria() {
           ...categorias,
           values,
         ]);
-        setValues(valoresIniciais);
+        clearForm();
       }}
       >
 
         <FormField
           label="Nome da Categoria"
-          value={values.nome}
+          value={values.titulo}
           onChange={handleChange}
-          name="nome"
+          name="titulo"
           type="text"
         />
 
@@ -88,13 +83,13 @@ function CadastroCategoria() {
         </Button>
       </form>
 
-      <ul>
+      <Ul>
         {categorias.map((categoria) => (
-          <li key={`${categoria.nome}$`}>
-            {categoria.nome}
+          <li key={`${categoria.titulo}$`}>
+            {categoria.titulo}
           </li>
         ))}
-      </ul>
+      </Ul>
 
       <Link to="/">
         Ir para home
@@ -103,4 +98,5 @@ function CadastroCategoria() {
     </PageDefault>
   );
 }
+
 export default CadastroCategoria;

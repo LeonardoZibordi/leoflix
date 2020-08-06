@@ -16,13 +16,13 @@ module.exports = {
       jsx: true,
     },
     ecmaVersion: 2018,
-    sourceType: 'module',
   },
   plugins: [
     'react',
   ],
+  "root": true,
   "rules": {
     "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
-    "linebreak-style": ["error", "windows"],
+    "linebreak-style": 0
   }
 };
