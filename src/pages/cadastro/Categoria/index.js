@@ -12,6 +12,8 @@ const Ul = styled.ul`
 /* //TODO Deixar bonito a lista */
 `;
 
+// TODO Cadastrar as categorias no server
+
 function CadastroCategoria() {
   const valoresIniciais = {
     titulo: '',
